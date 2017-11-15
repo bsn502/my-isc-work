@@ -457,5 +457,89 @@ Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 TypeError: 'str' object does not support item assignment
 
+#Aliasing = any mutable object can be subject to aliasing
+
+a = [[0,1,2],[0,1,2]]
+b  = a[1]
+print b
+[0,1,2]
+#if we change b to [0,hello,2] then we also change a to [[0,1,2],[0,hello,2]]
+#this is efficient for big datasets. If one thing in b is wrong we can change it and also change a to go along with it.
+
+#Can keep original versions by using the copy.deepcopy function. This creates a new copy from memory that you can change without altering the original dataset.
+
+#functions
+
+#Creating a simple function
+>>> def double_it(number):
+...     return 2 * number
+... 
+>>> double_it (2)
+4
+>>> double_it (3.5)
+7.0
+>>> double_it ("hello")
+'hellohello'
+
+#Calculate length of hypotenuse of right angled triange
+>>> def calc_hypo(a, b):
+...     hypo = (a**2 + b**2)**0.5
+...     return hypo
+... 
+>>> print calc_hypo(3, 4)
+5.0
+
+#Improve function by adding checks to the code
+>>> def calc_hypo(a, b):
+...     if type(a) not in (int, float) or type(b) not in (int, float):
+...             print "Bad argument"
+...             return False
+...     if a <= 0 or b <= 0:
+...             print "Bad argument"
+...             return False
+...     hypo = (a**2 + b**2)**0.5
+...     return hypo
+... 
+>>> calc_hypo(0, -2)
+Bad argument
+False
+>>> calc_hypo("hi", "bye")
+Bad argument
+False
+>>> calc_hypo(3, 4)
+5.0
+
+#in linux
+#make python library called "dancing"
+[user01@unst26 python_work]$ mkdir dancing
+[user01@unst26 python_work]$ python -c "import dancing"
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ImportError: No module named dancing
+[user01@unst26 python_work]$ touch dancing/__init__.py #"touch" creates a file if it's not there
+[user01@unst26 python_work]$ python -c "import dancing"
+
+#create dance.py module inside library
+[user01@unst26 exercises]$ cp example_code/dance.py dancing/ #dancing/ at the end is telling it where you want it to be copied to
+[user01@unst26 ~]$ cd my-isc-work/python_work
+[user01@unst26 python_work]$ python -c "import dancing.dance"
+[user01@unst26 python_work]$ python -c "from dancing.dance import boogie"
+
+#4 line script allowing users to interact with library
+NOT SURE HOW TO CREATE SCRIPT
+
+#Sets - sets are mutable - it can be modified - NB ordering in sets is random
+a.clear() # removes all items in set a
+letters = set('qwertyuiop')
+len(a) - gives number of elements
+a ^ b - in set a OR set b
+
+>>> a = set([0, 1, 2, 3, 4, 5])
+>>> b = set([2,4,6,8])
+>>> print a.union(b)
+set([0, 1, 2, 3, 4, 5, 6, 8])
+>>> print a.intersection(b)
+set([2, 4])
+
 
 
