@@ -4,6 +4,10 @@ Python
 
 cd my-isc-work/python_work
 
+git add README.txt
+git commit -m"pythonreadme"
+gitpush
+
 #pythagoras
 b=3
 c=4
