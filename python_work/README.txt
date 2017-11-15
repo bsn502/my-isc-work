@@ -8,7 +8,7 @@ git add README.txt
 git commit -m"pythonreadme"
 gitpush
 
-git commit -README.txt -m"pythonreadme"
+git commit -a -m"pythonreadme"
 git push
 
 Linux remembers history. Press ctrl+r searches all commands you've ever run
