@@ -541,5 +541,182 @@ set([0, 1, 2, 3, 4, 5, 6, 8])
 >>> print a.intersection(b)
 set([2, 4])
 
+#python2.7
+
+a = [1,2,3] list, can be changed
+t  = (1,2,3) tuple cannot be changed
+tup = tuple(a) converts a into a tuple called tup
+a = x,y,z
+x = 1, y = 2, z = 3
+
+for (count, item)  in enumerate(a):
+		print count, item
+0 1
+1 2
+2 3
+
+for i in enumerate(a):
+	print i
+(0, 1)
+(1, 2)
+(2, 3)
+
+for (count, item) in enumerate(a):
+	print count, item
+0 1
+1 2
+2 3
+
+with open('data.csv', 'r') as freader:
+	data = freader.read() #read returns everything you've read in in a single string
+23, 45, 78...
+
+with open('data.csv', 'r') as freader:
+	for line in freader.readlines():
+	print line
+25, 45, 78
+
+1, 77, 2.. etc #prints each line
+
+with open('data.csv', 'r') as freader:
+	for line in freader: #don't need to put readlines (shortcut)
+		print line.strip()
+25, 45, 78
+1, 77, 2..
+
+with open('output.csv', 'w') as freader:
+	fwriter.write("Hello\nWorld\n")
+	print line
+$more output.csv
+Hello
+World
+
+s = "Hi"
+s(dir) - lists all the things you can do with string, s
+s.upper()
+"HI"
+s.title()
+'Hi'
+s.startswith("H")
+True
+
+s = "aab"
+s.count("a)
+2 # there are two as in string, s
+
+s.find("c")
+-1 #there are no cs in string, s
+
+if s.find("c"):
+	print "FOUND"
+FOUND
+if -1:
+	print "TRUE"
+TRUE
+if s.find("c) != -1: #if s does not contain -1
+	pring "FOUND"
+
+if s.find("c) > 0: #if s does not contain -1
+	pring "FOUND"
+
+b= copy.deepcopy(a) #creates a copy of original
+
+def hello(person):
+	print "Hello {}".format(person)
+
+for person in ["Fred", "Harry", "Hermione"]:
+	hello(person)
+
+$ cd tmp
+$ ls
+$ mkdir mylib
+$ touch mylib/__init__.py
+python2.7
+import mylib
+vi mylib/myfuncs.py #vi - create script?
+
+#Dictionaries - An unordered collection of key/value pairs
+#Keys are immutable e.g. a tuple could be a dictionary key but not a list
+#sorted in no particular order
+
+#Create dictionary by putting key:value pairs in {}
+>>> birthdays = {'Newton' : 1642, 'Darwin' : 1809}
+
+#Retrieve values by putting key in []
+>>> print birthdays['Newton']
+1642
+
+#Changing values in dictionary
+>>> birthdays['Turing'] = 1612 #birthday not correct
+>>> print birthdays
+{'Turing': 1612, 'Newton': 1643, 'Darwin': 1809}
+>>> birthdays['Turing'] = 1912
+>>> print birthdays
+{'Turing': 1912, 'Newton': 1643, 'Darwin': 1809}
+
+#Not in dictionary
+>>> birthdays['Nightingale']
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: 'Nightingale'
+
+#Test if key in present using in
+>>> 'Nightingale' in birthdays
+False
+>>> 'Darwin' in birthdays
+True
+
+#Loop over dictionary using for NOT WORKING
+for name in birthdays:
+...     print name, birthdays[name]
+... 
+Turing 1912
+Newton 1642
+Darwin 1809
+
+#Useful methods on dictionaries
+>>> person  = {"name" : "Sarah", "height" : 2}
+>>> person.keys()
+['name', 'height']
+>>> person.values()
+['Sarah', 2]
+>>> person.items()
+[('name', 'Sarah'), ('height', 2)]
+>>> person.setdefault ('profession', 'astrophysicist')
+'astrophysicist'
+>>> person
+{'profession': 'astrophysicist', 'name': 'Sarah', 'height': 2}
+
+>>> band = ["mel", "geri", "victoria", "mel", "emma"]
+>>> counts = {} #create empty dictionary
+>>> for name in band:
+...     if name not in counts:
+...             counts[name] = 1
+...     else:
+...             counts[name] += 1
+...
+>>> for name in counts:
+...     print name, counts[name]
+
+#Useful characters in dictionaries
+>>> d = {"maggie" : "uk", "ronnie": "usa"}
+>>> dir(d)
+['__class__', '__cmp__', '__contains__', '__delattr__', '__delitem__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__init__', '__iter__', '__le__', '__len__', '__lt__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__', 'clear', 'copy', 'fromkeys', 'get', 'has_key', 'items', 'iteritems', 'iterkeys', 'itervalues', 'keys', 'pop', 'popitem', 'setdefault', 'update', 'values', 'viewitems', 'viewkeys', 'viewvalues']
+>>> print d.items()
+[('maggie', 'uk'), ('ronnie', 'usa')]
+>>> print d.keys()
+['maggie', 'ronnie']
+>>> print d.values()
+['uk', 'usa']
+>>> d.get("maggie", "nowhere") #if you have a value for location of maggie give it, if not give nowhere
+'uk'
+>>> d.get("ringo", "nowhere")
+'nowhere'
+>>> res = d.setdefault("mikhail", "ussr")
+>>> print res d["mikhail"]
+>>> print res, d["mikhail"]
+ussr ussr
+>>> print d
+{'maggie': 'uk', 'mikhail': 'ussr', 'ronnie': 'usa'}
 
 
