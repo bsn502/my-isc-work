@@ -1070,5 +1070,110 @@ MA.masked_array(data = ___, mask = ___, fill_value = 1e30) #fill value must be o
 [[100 200 300 400]
  [500 600 -- --]]
 
+-----------------------------------------------------------------------
+#Matplotlib - 2D plotting library produces publication quality figures
+#Matlab-like interface
+#open source, excellent tool
+
+import matplotlib.pyplot as plt
+
+plt.plot([1,2,3,4])
+plt.show()
+plt.pause(1) #show plot but refocus
+plt.clf() #clears figure
+plt.plot([1, 10, 3, 4, 9]) #plot something different
+
+times = [0, 0.25, 0.5, 0.75]
+plt.plot(times, [0, 0.5, 1], 'g--',label = "some data", times, [1,2,3,4], 'r' label = "some more data"
+plt.title('Concentration of...)
+plt.ylabel('Concentration...)
+plt.xlabel('Time (s)')
+plt.legend()
+plt.show()
+
+plt.savefig("myplot.png")
+
+plt.figure()
+plt.plot(range(5))
+plt.figure(figsize = (10, 10)) #size in inches
+plt.plot(range(100))
+plt.show() #shows both figures
+
+#Create plot
+>>> import matplotlib.pyplot as plt
+>>> plt.plot(range(10))
+[<matplotlib.lines.Line2D object at 0x3163710>]
+>>> plt.show()
+
+#$CO_2 - subscripts the 2
+
+#2
+>>> import matplotlib.pyplot as plt
+>>> plt.plot(range(10))
+[<matplotlib.lines.Line2D object at 0x3082790>]
+>>> plt.show()
+>>> times = range(7)
+>>> co2 = [250, 265, 272, 260, 300, 320, 289]
+>>> plt.plot(times, co2)
+[<matplotlib.lines.Line2D object at 0x36fe3d0>]
+>>> plt.plot(times, co2, 'b--')
+[<matplotlib.lines.Line2D object at 0x34c2510>]
+>>> plt.title("Concentration of $CO_2 versus time")
+<matplotlib.text.Text object at 0x36ebc90>
+>>> plt.ylabel("$[CO_2]")
+<matplotlib.text.Text object at 0x34d3390>
+>>> plt.xlabel("Time(decade)")
+<matplotlib.text.Text object at 0x34c6f50>
+>>> plt.show()
+
+#3
+>>> times = range(7)
+>>> co2 = [250, 265, 272, 260, 300, 320, 389]
+>>> temp = [14.1, 15.5, 16.3, 18.1, 17.3, 19.1, 20.2]
+>>> plt.plot(times, co2, 'b--', times, temp, 'r*-')
+[<matplotlib.lines.Line2D object at 0x3ac2790>, <matplotlib.lines.Line2D object at 0x3ac2950>]
+>>> plt.show()
+plt.savefig("co2_temp.pdf")
+>>> plt.savefig("co2_temp.pdf")
+
+#histograms
+import numpy as np
+
+#Multiple axes and multiple graphs
+
+#Reuse previous example with different axes
+>>> import matplotlib.pyplot as plt
+>>> fig, ax1 = plt.subplots()
+>>> times = range(7)
+>>> co2 = [250, 265, 272, 260, 300, 320, 389]
+>>> ax1.plot(times, co2, 'b--')
+[<matplotlib.lines.Line2D object at 0x2b568d0>]
+>>> ax1.set_ylabel("$CO_2")
+<matplotlib.text.Text object at 0x334b190>
+>>> ax2 = ax1.twinx()
+>>> temp = [14.1, 15.5, 16.3, 18.1, 17.3, 19.1, 20.2]
+>>> ax2.plot(times, temp, "r*--")
+[<matplotlib.lines.Line2D object at 0x379d9d0>]
+>>> ax2.set_ylabel("Temp / degC")
+<matplotlib.text.Text object at 0x377f690>
+>>> plt.show()
+
+#Draw three graphs side by side on a single page
+>>> plt.subplot(1,3,1)
+<matplotlib.axes._subplots.AxesSubplot object at 0x37836d0>
+>>> x = range(0,10,1)
+>>> plt.plot(x)
+[<matplotlib.lines.Line2D object at 0x39237d0>]
+>>> plt.subplot(1,3,2)
+<matplotlib.axes._subplots.AxesSubplot object at 0x3923990>
+>>> y=range(10,0,-1)
+>>> plt.plot(y)
+[<matplotlib.lines.Line2D object at 0x3b14750>]
+>>> plt.subplot(1,3,3)
+<matplotlib.axes._subplots.AxesSubplot object at 0x3b14910>
+>>> z = [4]*10
+>>> plt.plot(z)
+[<matplotlib.lines.Line2D object at 0x3c68890>]
+>>> plt.show()
 
 
