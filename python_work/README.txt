@@ -719,4 +719,356 @@ ussr ussr
 >>> print d
 {'maggie': 'uk', 'mikhail': 'ussr', 'ronnie': 'usa'}
 
+#errors
+
+#syntax errors - python cannot read what you've typed
+>>> while true print 'Hello world'
+ERROR
+>>> while true, print 'Hello  world' #better
+#Exceptions are not unconditionally fatal.
+#ZeroDivisionError, NameError, TypeError, KeyError.
+
+try:
+	result - runMyClimateModel
+except:
+	you can tell it to email you or print a message to raise a problem if model is bad
+
+if validate(input) == False:
+	raise Exception("Bad input provided")
+#Programme will stop here unless this exception is caught
+	else:
+		print "great input"
+
+def readIntFromFile(fname):
+	"returns an integer from a file."
+with open(fname) as f:
+	my_int = int(f.read(10)) 
+#read stuff out of file as return as integer
+
+for f in ("a.txt", "b.txt", "c.txt"):
+	try:
+		print readIntFromFile(f)
+	exceptIOError:
+		print "There is nothing in the file..."
+	except ValueErrorL:
+		print "The contents is not an integer..."
+	except Exception, err:
+		print "Really unexpected error"...
+
+#you can thus capture and handle errors!
+
+#Logging and debugging
+#Python has the "logging" module which allows you to log in may useful ways: to the terminal; to files; to custon-handlers (email); to system log files
+
+#pythondebugger - set break points in the code where you can go into code and interrogate.  Fix problems.
+>>> import pdb #pythons debugger
+>>> pdb.set_trace() #to add break point
+(pdb) x #let's look at x
+
+#Object orientated programming (OOP)
+ADVANCED...
+
+--------------------------------------------------------------------------
+
+#NumPy
+
+#an array is like a list except: elements are of same type, multi-dimensional arrays are more clearly supported, array operations are supported
+#NumPy is written in C so processing of large arrays is faster than lists
+#import package numpy. Often imported as an alias:
+
+import numpy as np (np.________)
+
+>>>import numpy as np
+>>> a = np.arrray([[2,3,-5], [21,-2,1]]
+	dtype = np.int32)
+
+>>>np.float64 #Double precision float
+>>>np.floar32 #Single precision float
+>>>np.int8 #Byte
+>>>np.int64 #Long integer (64 bit)
+
+>>>a = np.zeros((3,2), dtype=np.float64) #creates 3 by 2 array filled with zeros
+>>>a = np.arange(10) #gives one dimensional array will defalt to integers
+#The first element of 1-D array   a is  a[0], the second is a[1], a[-1] is last etc
+#ranges can be expressed by colon a[4:8] #counts in between elements so ends just before 9th element
+#multi-dimensional - [row, col]. Indexing between different dimensions is separated by commas.
+
+#Create a numpy array from a list
+>>> a1 = np.array(x, np.int32)
+>>> print a1
+[ 1  2  3  4  5  6  7  8  9 10]
+
+>>> a2 = np.array(x, np.float32)
+>>> print a2
+[  1.   2.   3.   4.   5.   6.   7.   8.   9.  10.]
+
+>>> print a1.dtype
+int32
+>>> print a2.dtype
+float32
+
+#Create arrays in different ways
+>>> arr = np.zeros((2, 3, 4))
+>>> print arr
+[[[ 0.  0.  0.  0.]
+  [ 0.  0.  0.  0.]
+  [ 0.  0.  0.  0.]]
+
+ [[ 0.  0.  0.  0.]
+  [ 0.  0.  0.  0.]
+  [ 0.  0.  0.  0.]]]
+>>> arr = np.ones((2, 3, 4))
+>>> print arr
+[[[ 1.  1.  1.  1.]
+  [ 1.  1.  1.  1.]
+  [ 1.  1.  1.  1.]]
+
+ [[ 1.  1.  1.  1.]
+  [ 1.  1.  1.  1.]
+  [ 1.  1.  1.  1.]]]
+>>> arr = np.arange(1000) #points between so goes up to 999
+>>> print arr
+[  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17
+  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35
+  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52...999]
+
+#Indexing and slicing arrays
+>>> a = np.array([2, 3.2, 5.5, -6.4, -2.2, 2.4])
+>>> print a[1]
+3.2
+>>> print a[1:4]
+[ 3.2  5.5 -6.4]
+>>> a = np.array([[2, 3.2, 5.5, -6.4, -2.2, 2.4],[1, 22, 4, 0.1, 5.3, -9],[ 3, 1, 2.1, 21, 1.1, -2]])
+>>> print a[:, 3]
+[ -6.4   0.1  21. ] #21 has a point following it because if one is a float, they all have to be. Prints everything in the first [] ([] number 0) after point 3
+>>> print a[1:4, 0:4]
+[[  1.   22.    4.    0.1] 
+ [  3.    1.    2.1  21. ]] #print []s 1-4 which is the second one to after the end (4th one doesn't exist). Within each give point 0 to 4 (first 4 values)
+>>> print a[1:, 2]
+[ 4.   2.1] #prints from the second [] ([] number 1) and also the thrid [] ([] number 3). Prints the value after the second counter in each.
+
+#Interrogating arrays
+
+np.shape(a) #returns tuple
+np.ndim(a) #rank / no. of dimensions
+np.size(a) #number of elements
+np.max(a) #or ##np.min(a) #find the maximum and minimum of the array
+
+#manipulating the array - all return a new array
+np.reshape (a, (2,3)) #reshapes the array
+np.transpose(a) #transpose the array
+np.ravel(a) #flatten to a 1-D array. May be useful when  dealing with model data
+np.concatenate((a,b)) #concatenate array. Give a tuple containing a no. of numpy arrays. concats on first dimension or axis.
+np.repeat(a, 3) #repeat array elements
+
+#Arrays as objects
+a.shape = np.shape(a) # = literal meaning of =
+a.max = np.max(a) # = literal meaning of =
+a.repeat(3) = np.repeat(a,3) # = literal meaning of =
+b = a.astype(np.int32) #convert data type
+np.average(a) #use this since a.average doesn't exist
+
+#Interogating the array to find out its characteristics
+>>> import numpy as np
+>>> arr = np.array([range(4), range(10, 14)])
+>>> print arr.shape
+(2, 4)
+>>> print arr.size
+8
+>>> print arr.max()
+13
+>>> print arr.min()
+0
+
+#Generate new ways of modifying the array
+>>> import numpy as np
+>>> arr = np.array([range(4), range(10, 14)])
+>>> print arr.shape
+(2, 4)
+>>> print arr.size
+8
+>>> print arr.max()
+13
+>>> print arr.min()
+0
+>>> print np.reshape(arr, (2,2,2))
+[[[ 0  1]
+  [ 2  3]]
+
+ [[10 11]
+  [12 13]]]
+>>> print np.transpose(arr)
+[[ 0 10]
+ [ 1 11]
+ [ 2 12]
+ [ 3 13]]
+>>> print np.ravel(arr)
+[ 0  1  2  3 10 11 12 13]
+>>> print arr.astype(np.float64)
+[[  0.   1.   2.   3.]
+ [ 10.  11.  12.  13.]]
+
+#Multiply two arrays together, element by element
+import numpy as np
+a = np.array([[2, 3.2, 5.5, -6.4], [3, 1, 2.1, 21]])
+b = np.array([[4, 1.2, -4, 9.1], [6, 21, 1.5, -27]])
+shape_a = a.shape
+product_ab = np.zeros(shape_a, dtype=np.float32)
+
+for i in xrange(shape_a[0]):
+	for j in xrange (shape_a[1]):
+etc
+
+#xrange loops are very slow so don't do it this way
+
+product_ab = a * b #best way to do it
+c = a + c
+#this works faster since looping happens in compiled code inside library that is optimised rather than inside your programme.
+
+#old way
+for i in xrange(shape_a[0]):
+	for j in xrange (shape_a[1]):
+	if (a[i,j] > 5) and (a[i,j] < 10):
+			answer[i,j] = a[i,j] * 2
+		else:
+			pass #do nothing
+#new way
+answer = a > 5
+answer = np.greater(a, 5)
+#new way boolean operators
+np.logical_not(a > 3)
+np.logical_and(a > 3,a < 5)
+
+#with where function
+condition = np.logical_and(a > 3,a < 5)
+answer = np.where(condition, a * 2, 0)
+#all places where true, end up with a*2, all places where false get 0
+
+#Mathematical and statistical functions:
+np.interp
+np.sin
+np.exp
+np.histogram
+np.hamming
+np.fft
+
+#other functions
+dir(np)
+help(np)
+help(np.x) where x is the name of a function
+dir(a) and help(a) where a is the name of an array
+
+#Performing some array calculations
+>>> import numpy as np
+>>> a = np.array([range(4), range(10, 14)])
+>>> b = np.array([2, -1, 1, 0])
+>>> print a * b
+[[  0  -1   2   0]
+ [ 20 -11  12   0]]
+>>> b1 = b * 100
+>>> b2 =  b * 100.0
+>>> print b1, b2
+[ 200 -100  100    0] [ 200. -100.  100.    0.]
+>>> print b1 == b2
+[ True  True  True  True]
+>>> print b1.dtype, b2.dtype
+int64 float64
+
+#Look at array comparisons
+>>> arr = np.arange(10)
+>>> print arr < 3
+[ True  True  True False False False False False False False]
+>>> print np.less(arr, 3)
+[ True  True  True False False False False False False False]
+>>> condition = np.logical_or(arr < 3, arr > 8)
+>>> new_arr = np.where(condition, arr * 5, arr * -5)
+>>> print new_arr
+[  0   5  10 -15 -20 -25 -30 -35 -40  45]
+
+#Implement a mathematical function that works on arrays
+>>> def calcMagnitude(u, v, minmag = 0.1):
+...     mag = ((u**2) + (v**2))**0.5
+...     output = np.where(mag > minmag, mag, minmag)
+...     return output
+... 
+>>> u = np.array([[4, 5, 6], [2, 3, 4]])
+>>> v = np.array([[2, 2, 2], [1, 1, 1]])
+>>> print calcMagnitude(u, v)
+
+[[ 4.47213595  5.38516481  6.32455532]
+ [ 2.23606798  3.16227766  4.12310563]]
+>>> u = np.array([[4, 5, 0.01], [2, 3, 4]])
+>>> v = np.array([[2, 2, 0.03], [1, 1, 1]])
+>>> print calcMagnitude(u, v)
+[[ 4.47213595  5.38516481  0.1       ]
+ [ 2.23606798  3.16227766  4.12310563]]
+
+#testing if fucntion works using first value in u and v
+>>> x = ((4**2)+(2**2))**0.5
+>>> x
+4.47213595499958
+
+#boolean is a data type that is either true or false
+
+#Handling missing values (using masked arrays)
+#A masked array includes and mask of bad values that travels with the array
+#Bad elements are treated as if they don't exist.
+(masked arrays - numpy.ma)
+
+import numpy as np
+import numpy.ma as MA
+
+a = MA.masked array(data = [1, 2, 3], mask = [True, True, False])
+etc
+
+#Advantage - you can do ordinary operations without having to worry  about bad values as these are automatically masked.
+
+#fill values
+>>>print a.filled()
+array([999999, 999999, 3])
+MA.masked_array(data = ___, mask = ___, fill_value = 1e30) #fill value must be outside data range so it is obviously not a valid data number.
+
+#Create a masked array and explore it
+>>> import numpy.ma as MA
+>>> marr = MA.masked_array(range(10), fill_value = -999)
+>>> print marr, marr.fill_value
+[0 1 2 3 4 5 6 7 8 9] -999
+>>> marr[2] = MA.masked
+>>> print marr
+[0 1 -- 3 4 5 6 7 8 9]
+>>> print marr.mask
+[False False  True False False False False False False False]
+>>> narr = MA.masked_where(marr > 6, marr)
+>>> print narr
+[0 1 -- 3 4 5 6 -- -- --]
+>>> x = MA.filled(narr)
+>>> print x
+[   0    1 -999    3    4    5    6 -999 -999 -999]
+>>> print type(x)
+<type 'numpy.ndarray'>
+
+#Create mask smaller than overall array
+>>> m1 = MA.masked_array(range(1, 9))
+>>> print m1
+[1 2 3 4 5 6 7 8]
+>>> m2 = m1.reshape(2,4)
+>>> print m2
+[[1 2 3 4]
+ [5 6 7 8]]
+>>> m3 = MA.masked_greater(m2, 6)
+>>> print m3
+[[1 2 3 4]
+ [5 6 -- --]]
+>>> res = m3 - np.ones((2,4))
+>>> print res
+[[0.0 1.0 2.0 3.0]
+ [4.0 5.0 -- --]]
+>>> print type(res)
+<class 'numpy.ma.core.MaskedArray'>
+>>> m4 =  m3 * 100
+>>> print m4
+[[100 200 300 400]
+ [500 600 -- --]]
+
+
 
