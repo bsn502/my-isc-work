@@ -6,7 +6,7 @@ cd my-isc-work/python_work
 
 git add README.txt
 git commit -m"pythonreadme"
-gitpush
+git push
 if you change something on remote  repository, do git pull
 
 git commit -a -m"pythonreadme"
