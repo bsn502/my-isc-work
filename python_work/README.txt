@@ -1340,9 +1340,35 @@ time = 00:00
 >>> print metadata
 {u'_FillValue': 2e+20, u'date': u'12/12/14', u'name': u'SSTK', u'source': u'GRIB data', u'title': u'Sea surface temperature', u'long_name': u'Sea surface temperature', u'time': u'00:00', u'units': u'K', u'grid_type': u'gaussian'}
 
+#Create NetCDF files with python
+#import librarys
+import numpy as np
+import time as mytime
+from numpy.random import uniform
+from datetime import datetime, timedelta
+from netCDF4 etc
+
+dataset = Dataset('test.nc', 'w', format = 'NETCDF4_CLASSIC')
+#then create dimensions
+#create variables
+
+#Writing and plotting NetCDF files exercise
+>>> def convert_temp(temp):
+...     value = temp.strip("+").strip("C").lstrip("0")
+...     return float(value)+273.15
+... 
+>>> file='home/user01/ncas-isc/python/exercises/example_data/sample-serial-temperature-2h.tsv'
+>>> infile = 'sample-serial-temperature-2h.tsv'
+>>> outfile = 'sensor-data.nc'
+>>> from csv import reader
+>>> times = []
+>>> tempts = []
+>>> with open(infile, 'rb') as tsvfile:
+...     tsvreader = reader(tsvfile, delimiter = '\t')
+...     for row in tsvreader:
+...             times.append(convert_time(row[0]))
+...             temps.append(convert_temp(row[1]))
 
 
-
-
-
-
+file='home/user01/ncas-isc/python/exercises/example_data/sample-serial-temperature-2h.tsv'
+???
