@@ -7,6 +7,7 @@ cd my-isc-work/python_work
 git add README.txt
 git commit -m"pythonreadme"
 gitpush
+if you change something on remote  repository, do git pull
 
 git commit -a -m"pythonreadme"
 git push
@@ -1175,5 +1176,173 @@ import numpy as np
 >>> plt.plot(z)
 [<matplotlib.lines.Line2D object at 0x3c68890>]
 >>> plt.show()
+
+-------------------------------------------------------
+
+#add/take out symbols acsii and unicode
+unix2dos
+dos2unix
+
+#encoding with .csv or NASA Ames (.na) files. csv files more portable / universal since you do not need excel software to read them.
+
+#metadata - providing the  columns with names of variables. Needs to be clear what was measured e.g. degrees - degrees from north???
+
+datetime.utcnow().isoformat() #returns the current UTC in ISO format
+
+#Temperature probe
+>>> #!usr/bin/python2.7
+... import serial
+>>> ser = serial.Serial(
+...     port = '/dev/ttyUSB0',
+...     baudrate = 9600,
+...     bytesize = serial.EIGHTBITS,
+...     parity = serial.PARITY_NONE,
+...     stopbits = serial.STOPBITS_ONE)
+>>> print ser.read(size=8)
++023.7C
+
+#
+>>> from datetime import datetime
+>>> print datetime.utcnow().isoformat(), ser.read(size=8)
+2017-11-17T12:12:13.003630 +026.3C
+>>> datastring = ser.read(size=8)
+>>> print datetime.utcnow().isoformat(), ser.read(size=8)
+2017-11-17T12:14:28.382761 +029.4C
+
+TEMPERATURE PROBE EXERCISE
+
+#!/usr/bin/python2.7
+import serial
+ser = serial.Serial(
+	port='/dev/ttyUSB0',
+	baudrate=9600,
+	bytesize=serial.EIGHTBITS,
+	parity=serial.PARITY_NONE,
+	stopbits=serial.STOPBITS_ONE)
+
+print ser.read(size=8) #get +022.9C
+
+from datetime import datetime
+print datetime.utcnow().isoformat(), ser.read(size=8)
+
+datastring=ser.read(size=8)
+print datetime.utcnow().isoformat(), datastring
+#since you only get data once every 10 seconds,
+time can be recorded up to 10 seconds before the actual reading
+
+while ser.isOpen():
+	datastring=ser.read(size=8)
+	print datetime.utcnow().isoformat(), datastring
+
+import io
+sio = io.TextIOWrapper(io.BufferedRWPair(ser, ser, 1), encoding='ascii', newline='\r')
+while ser.isOpen():
+	datastring=sio.readline()
+	print datetime.utcnow().isoformat(), datastring
+
+#!/usr/bin/python
+from datetime import datetime
+import serial, io
+
+outfile='/tmp/serial-temperature.tsv'
+
+ser=serial.Serial(
+	port='/dev/ttyUSB0',
+	baudrate=9600)
+
+sio=io.TextIOWrapper(
+	io.BufferedRWPair(ser, ser, 1),
+	encoding='ascii', newline='\r')
+
+with open(outfile,'a') as f: #append to existing files
+	while ser.isOpen():
+		datastring=sio.readline() #\t is tab, \n is line separator
+		f.write(datetime.utcnow().isoformat() + '\t' + datastring + '\n')
+		f.flush() #force system to write to disk
+
+ser.close()
+
+-----------------------------------------------------------------------------------------------------
+
+#NetCDF
+
+#NetCDF already installed on anaconda.
+
+#Reading NetCDF files on python
+
+#Using the NetCDF library to examine the contents of a data file
+>>> import netCDF4
+>>> ds = netCDF4.Dataset("example_data/ggas2014121200_00-18.nc")
+>>> for v in ds.variables:
+...     print v,
+... 
+longitude latitude surface time CI SSTK MSL TCC U10 V10 SKT
+>>> sst = ds.variables["SSTK"]
+>>> print sst
+<type 'netCDF4._netCDF4.Variable'>
+float32 SSTK(time, surface, latitude, longitude)
+    long_name: Sea surface temperature
+    units: K
+    grid_type: gaussian
+    _FillValue: 2e+20
+    source: GRIB data
+    name: SSTK
+    title: Sea surface temperature
+    date: 12/12/14
+    time: 00:00
+unlimited dimensions: time
+current shape = (4, 1, 256, 512)
+filling off
+
+>>> for d  in sst.dimensions:
+...     print d, len(ds.variables[d])
+... 
+time 4
+surface 1
+latitude 256
+longitude 512
+>>> print sst.shape, sst.size
+(4, 1, 256, 512) 524288
+>>> for attr in sst.ncattrs
+long_name = Sea surface temperature
+units = K
+grid_type = gaussian
+_FillValue = 2e+20
+source = GRIB data
+name = SSTK
+title = Sea surface temperature
+date = 12/12/14
+time = 00:00
+
+#Extracting data and its related coordinate information and metadata (continue from previous)
+>>> arr = sst[1, 0, 10:20, 30:35]
+>>> print type(arr)
+<class 'numpy.ma.core.MaskedArray'>
+>>> dims = sst.dimensions
+>>> print dims
+(u'time', u'surface', u'latitude', u'longitude')
+>>> vars = ds.variables
+>>> arr_time = vars["time"] [1]
+>>> arr_level = vars["surface"] [0]
+>>> arr_lats = vars["latitude"] [10:20]
+>>> arr_lons = vars["longitude"] [30:35]
+>>> for vals in (arr_time, arr_level, arr_lats, arr_lons):
+...     print vals
+... 
+0.25
+0.0
+[ 82.45532227  81.75363159  81.05194092  80.35023499  79.64852905
+  78.94680786  78.2450943   77.54336548  76.84163666  76.13990784]
+[ 21.09375   21.796875  22.5       23.203125  23.90625 ]
+>>> metadata = {}
+>>> for attr in sst.ncattrs():
+...     metadata[attr] = getattr(sst, attr)
+>>> print metadata
+{u'_FillValue': 2e+20, u'date': u'12/12/14', u'name': u'SSTK', u'source': u'GRIB data', u'title': u'Sea surface temperature', u'long_name': u'Sea surface temperature', u'time': u'00:00', u'units': u'K', u'grid_type': u'gaussian'}
+
+
+
+
+
 
 
